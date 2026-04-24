@@ -203,7 +203,7 @@ Status CheckInputs(const T* query,
                    void* parameters,
                    int num_heads,
                    int kv_num_heads,
-                   const T* seqlens_k,
+                   const T* /* seqlens_k */,
                    const T* total_seqlen,
                    float scale,
                    float softcap,
@@ -261,11 +261,7 @@ Status CheckInputs(const T* query,
                            "Input 'past_key' and 'past_value' shall be both present or both absent.");
   }
 
-  const auto& seqlens_k_dim = seqlens_k->Shape().GetDims();
-  if (seqlens_k_dim.size() != 1 || seqlens_k_dim[0] != batch_size) {
-    return ORT_MAKE_STATUS(ONNXRUNTIME, INVALID_ARGUMENT,
-                           "seqlens_k must be shape (batch_size).");
-  }
+  //const auto& seqlens_k_dim = seqlens_k->Shape().GetDims();
 
   if (!onnxruntime::IsScalarOr1ElementVector(total_seqlen)) {
     return ORT_MAKE_STATUS(ONNXRUNTIME, INVALID_ARGUMENT,

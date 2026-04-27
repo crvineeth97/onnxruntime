@@ -62,3 +62,15 @@
 - **Decode**: 50.4529 token/sec (baseline: 48.9975) — +2.97%; -1.18% vs attempt 3
 - **Result**: Worse than the current best. Reverted with `git stash`.
 - **Hypothesis**: Half-group rotation separates neighboring tiles too much, reducing the locality/scheduling benefit from the +1 rotation.
+
+### Attempt 8: default MatMulNBits group16 rotate by 4 ❌
+
+- **Change**: Kept the N-tile swizzle group at 16 but rotated by +4 tiles.
+- **Prefill**: 615.456 token/sec (baseline: 613.955) — +0.24%
+- **Decode**: 50.6914 token/sec (baseline: 48.9975) — +3.46%; -0.71% vs attempt 3
+- **Result**: Worse than the current best. Reverted with `git stash`.
+- **Hypothesis**: Wider intra-group skips underperform the adjacent +1 rotation; group16/+1 remains the best simple swizzle found.
+
+## Summary
+
+The best result is attempt 3: group16/+1 N-tile swizzle in the default `MatMulNBits` shader, with decode improving from 48.9975 to 51.0543 token/sec (+4.20%) and prefill essentially unchanged. Five subsequent variants did not improve on it, so the experiment stopped with attempt 3 kept as the current source state.

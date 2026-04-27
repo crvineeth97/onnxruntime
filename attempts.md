@@ -22,3 +22,11 @@
 - **Decode**: 50.8542 token/sec (baseline: 48.9975) — +3.79%; +0.20% vs attempt 1
 - **Result**: Slight further decode improvement with no added complexity. Kept and committed.
 - **Hypothesis**: Larger N-tile rotation improves locality/scheduling a little more for the recurring 1024/2048/6144 decode projection shapes.
+
+### Attempt 3: default MatMulNBits N-tile swizzle in groups of 16 ✅
+
+- **Change**: Increased the N-tile swizzle group from 8 to 16 in the default `MatMulNBits` path.
+- **Prefill**: 615.455 token/sec (baseline: 613.955) — +0.24%
+- **Decode**: 51.0543 token/sec (baseline: 48.9975) — +4.20%; +0.39% vs attempt 2
+- **Result**: Further decode improvement with the same simple implementation. Kept and committed.
+- **Hypothesis**: The decode workload benefits from a wider rotated N-tile issue order, likely because adjacent projection tiles share enough access patterns for better scheduling/cache behavior.

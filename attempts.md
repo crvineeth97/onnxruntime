@@ -54,3 +54,11 @@
 - **Decode**: 50.8033 token/sec (baseline: 48.9975) — +3.69%; -0.49% vs attempt 3
 - **Result**: Worse than the current best. Reverted with `git stash`.
 - **Hypothesis**: Direction matters; the forward +1 issue order is better for this workload than wrapping from the end of each group.
+
+### Attempt 7: default MatMulNBits group16 rotate by 8 ❌
+
+- **Change**: Kept the N-tile swizzle group at 16 but rotated by half a group (+8 tiles).
+- **Prefill**: 615.499 token/sec (baseline: 613.955) — +0.25%
+- **Decode**: 50.4529 token/sec (baseline: 48.9975) — +2.97%; -1.18% vs attempt 3
+- **Result**: Worse than the current best. Reverted with `git stash`.
+- **Hypothesis**: Half-group rotation separates neighboring tiles too much, reducing the locality/scheduling benefit from the +1 rotation.

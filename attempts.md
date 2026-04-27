@@ -38,3 +38,11 @@
 - **Decode**: 49.6973 token/sec (baseline: 48.9975) — +1.43%; -2.66% vs attempt 3
 - **Result**: Regressed from the current best. Reverted with `git stash`.
 - **Hypothesis**: A 32-tile rotation is too wide and disrupts the locality/scheduling effect that helped at group size 16.
+
+### Attempt 5: default MatMulNBits group16 rotate by 2 ❌
+
+- **Change**: Kept the N-tile swizzle group at 16 but changed the rotation from +1 tile to +2 tiles.
+- **Prefill**: 613.787 token/sec (baseline: 613.955) — unchanged
+- **Decode**: 49.7473 token/sec (baseline: 48.9975) — +1.53%; -2.56% vs attempt 3
+- **Result**: Regressed from the current best. Reverted with `git stash`.
+- **Hypothesis**: The +1 rotation is important; skipping an extra neighboring tile loses the beneficial locality/scheduling behavior.

@@ -3,3 +3,4 @@ f5689c8043,613.955,48.9975,baseline
 6366f31178,614.876,50.7529,default MatMulNBits N-tile swizzle in groups of 4
 2e6f31a008,615.281,50.8542,default MatMulNBits N-tile swizzle in groups of 8
 aadff7e6ba,615.455,51.0543,default MatMulNBits N-tile swizzle in groups of 16
+stashed,614.004,49.6973,default MatMulNBits N-tile swizzle in groups of 32

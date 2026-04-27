@@ -5,3 +5,4 @@ f5689c8043,613.955,48.9975,baseline
 aadff7e6ba,615.455,51.0543,default MatMulNBits N-tile swizzle in groups of 16
 stashed,614.004,49.6973,default MatMulNBits N-tile swizzle in groups of 32
 stashed,613.787,49.7473,default MatMulNBits group16 rotate by 2
+stashed,615.382,50.8033,default MatMulNBits group16 reverse rotation

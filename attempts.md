@@ -46,3 +46,11 @@
 - **Decode**: 49.7473 token/sec (baseline: 48.9975) — +1.53%; -2.56% vs attempt 3
 - **Result**: Regressed from the current best. Reverted with `git stash`.
 - **Hypothesis**: The +1 rotation is important; skipping an extra neighboring tile loses the beneficial locality/scheduling behavior.
+
+### Attempt 6: default MatMulNBits group16 reverse rotation ❌
+
+- **Change**: Kept the N-tile swizzle group at 16 but rotated by -1 tile instead of +1.
+- **Prefill**: 615.382 token/sec (baseline: 613.955) — +0.23%
+- **Decode**: 50.8033 token/sec (baseline: 48.9975) — +3.69%; -0.49% vs attempt 3
+- **Result**: Worse than the current best. Reverted with `git stash`.
+- **Hypothesis**: Direction matters; the forward +1 issue order is better for this workload than wrapping from the end of each group.
